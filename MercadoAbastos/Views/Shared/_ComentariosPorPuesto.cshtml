@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Comentario>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions { UpdateTargetId = "comments-tool" };
+}
+<h3>Comments</h3>
+@using (Ajax.BeginForm("_CommentariosPorPuesto", new { Numero_Puesto = ViewBag.NumeroPuesto }, ajaxOptions))
+{
+
+    <div id="comments-tool">
+        <div id="all-comments">
+            @foreach (var item in Model)
+            {
+            <div class="photo-comment">
+                <div class="photo-comment-from">
+                    From:
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </div>
+                <div class="photo-comment-subject">
+                    @Html.DisplayNameFor(model => model.Like):
+                    @Html.CheckBox("Like", (bool)item.Like)
+                </div>
+                <div class="photo-comment-body">
+                    @Html.DisplayFor(modelItem => item.Contenido)
+                </div>
+                <hr>
+            </div>
+            }
+        </div>
+    </div>
+}
+

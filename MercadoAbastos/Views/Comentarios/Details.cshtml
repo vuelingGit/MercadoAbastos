@@ -1,0 +1,50 @@
+﻿@model MercadoAbastos.Comentario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comentario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHoraCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHoraCreacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contenido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contenido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Like)
+        </dt>
+
+        <dd>
+            @Html.CheckBox("Like", (bool)Model.Like)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Puesto.Metodos_de_Pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Puesto.Metodos_de_Pago)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Codigo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

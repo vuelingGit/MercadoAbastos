@@ -1,0 +1,86 @@
+﻿@model MercadoAbastos.Puesto
+
+@{
+    ViewBag.Title = "Detalles de Puesto";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Puesto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Foto:
+        </dt>
+
+        <dd>
+            @if (Model.Foto != null)
+            {
+                <img height="100" src="@Url.Action("GetImg", "Puestoes", new { Model.Numero_Puesto })" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hora_Entrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hora_Entrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hora_Salida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hora_Salida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Metodos_de_Pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Metodos_de_Pago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripción)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripción)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colaborador.Nombre_Completo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colaborador.Nombre_Completo)
+        </dd>
+
+    </dl>
+</div>
+@Html.Action("_ComentariosPorPuesto","Comentarios", new { Numero_Puesto = Model.Numero_Puesto })
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Numero_Puesto }) |
+    @Html.ActionLink("Volver a la Lista", "Index")
+</p>

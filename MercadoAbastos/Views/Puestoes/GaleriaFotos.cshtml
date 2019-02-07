@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Puesto>
+@{
+    ViewBag.Title = "Galeria de Fotos de puestos";
+}
+<h2>@ViewBag.Title</h2>
+<p>
+    @Html.ActionLink("Crea Nuevo Puesto", "Create")
+</p>
+
+@Html.Action("_PhotoGallery")

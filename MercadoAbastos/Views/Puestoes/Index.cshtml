@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MercadoAbastos.Puesto>
+
+@{
+    ViewBag.Title = "Indice";
+}
+
+<h2>Indice</h2>
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Crea Nuevo Puesto","Create")</li>
+                <li>@Html.ActionLink("SlideShow", "SlideShow");</li>
+                <li>@Html.ActionLink("Galeria", "Galeria")</li>
+                <li>@Html.ActionLink("Top Cinco", "GaleriaFotosTop5")</li>
+                <li>@Html.ActionLink("Down Cinco", "GaleriaFotosDown5")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_Entrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_Salida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metodos_de_Pago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripción)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colaborador.Nombre_Completo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.Foto != null)
+                {
+                    <img height="100" src="@Url.Action("GetImg", "Puestoes", new { item.Numero_Puesto })" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_Entrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_Salida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Metodos_de_Pago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripción)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colaborador.Nombre_Completo)
+            </td>
+            <td>
+                @Html.ActionLink("Edita", "Edit", new { id = item.Numero_Puesto }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Numero_Puesto }) |
+                @Html.ActionLink("Elimina", "Delete", new { id = item.Numero_Puesto })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MercadoDeSantiagoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Colaborador">
+          <Key>
+            <PropertyRef Name="DNI" />
+          </Key>
+          <Property Name="DNI" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre Completo" Type="varchar" MaxLength="100" />
+          <Property Name="Correo Electronico" Type="varchar" MaxLength="50" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="datetime" />
+          <Property Name="Contenido" Type="varchar" MaxLength="200" />
+          <Property Name="Like" Type="bit" />
+          <Property Name="Numero Puesto" Type="int" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="Numero Puesto" />
+          </Key>
+          <Property Name="Numero Puesto" Type="int" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="Hora Entrada" Type="time" Precision="7" />
+          <Property Name="Hora Salida" Type="time" Precision="7" />
+          <Property Name="Metodos de Pago" Type="varchar" MaxLength="50" />
+          <Property Name="Descripción" Type="varchar(max)" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="DNI" Type="varchar" MaxLength="20" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Comentario_Puesto">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="Numero Puesto" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Numero Puesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Puesto_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="0..1" />
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="DNI" />
+            </Principal>
+            <Dependent Role="Puesto">
+              <PropertyRef Name="DNI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="MercadoDeSantiagoModelStoreContainer">
+          <EntitySet Name="Colaborador" EntityType="Self.Colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comentario_Puesto" Association="Self.FK_Comentario_Puesto">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Puesto_Colaborador" Association="Self.FK_Puesto_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Puesto" EntitySet="Puesto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MercadoDeSantiagoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Colaborador">
+          <Key>
+            <PropertyRef Name="DNI" />
+          </Key>
+          <Property Name="DNI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre_Completo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Correo_Electronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Puesto" Relationship="Self.FK_Puesto_Colaborador" FromRole="Colaborador" ToRole="Puesto" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Contenido" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Like" Type="Boolean" />
+          <Property Name="Numero_Puesto" Type="Int32" />
+          <NavigationProperty Name="Puesto" Relationship="Self.FK_Comentario_Puesto" FromRole="Comentario" ToRole="Puesto" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="Numero_Puesto" />
+          </Key>
+          <Property Name="Numero_Puesto" Type="Int32" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Hora_Entrada" Type="Time" Precision="7" />
+          <Property Name="Hora_Salida" Type="Time" Precision="7" />
+          <Property Name="Metodos_de_Pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DNI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Colaborador" Relationship="Self.FK_Puesto_Colaborador" FromRole="Puesto" ToRole="Colaborador" />
+          <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Puesto" FromRole="Puesto" ToRole="Comentario" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Puesto_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="0..1" />
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="DNI" />
+            </Principal>
+            <Dependent Role="Puesto">
+              <PropertyRef Name="DNI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Puesto">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="Numero_Puesto" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Numero_Puesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MercadoDeSantiagoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Colaborador" EntityType="Self.Colaborador" />
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" />
+          <AssociationSet Name="FK_Puesto_Colaborador" Association="Self.FK_Puesto_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Puesto" EntitySet="Puesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Puesto" Association="Self.FK_Comentario_Puesto">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MercadoDeSantiagoModelStoreContainer" CdmEntityContainer="MercadoDeSantiagoEntities">
+          <EntitySetMapping Name="Colaborador">
+            <EntityTypeMapping TypeName="MercadoDeSantiagoModel.Colaborador">
+              <MappingFragment StoreEntitySet="Colaborador">
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre Completo" />
+                <ScalarProperty Name="Correo_Electronico" ColumnName="Correo Electronico" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentario">
+            <EntityTypeMapping TypeName="MercadoDeSantiagoModel.Comentario">
+              <MappingFragment StoreEntitySet="Comentario">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="Contenido" ColumnName="Contenido" />
+                <ScalarProperty Name="Like" ColumnName="Like" />
+                <ScalarProperty Name="Numero_Puesto" ColumnName="Numero Puesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puesto">
+            <EntityTypeMapping TypeName="MercadoDeSantiagoModel.Puesto">
+              <MappingFragment StoreEntitySet="Puesto">
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+                <ScalarProperty Name="Numero_Puesto" ColumnName="Numero Puesto" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Hora_Entrada" ColumnName="Hora Entrada" />
+                <ScalarProperty Name="Hora_Salida" ColumnName="Hora Salida" />
+                <ScalarProperty Name="Metodos_de_Pago" ColumnName="Metodos de Pago" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="MercadoDeSantiagoModel.Store.sp_dropdiagram" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

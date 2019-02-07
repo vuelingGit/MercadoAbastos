@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Puesto>
+@foreach (var item in Model)
+{
+
+    <div class="photo-index-card">
+        <h3>
+            "@Html.DisplayFor(modelItem => item.Nombre)"
+        </h3>
+
+        @if (item.Foto != null)
+        {
+            <div class="photo-display">
+                <img class="photo-display-img" src="@Url.Action("GetImg", "Puestoes", new { Numero_Puesto = item.Numero_Puesto })" />
+            </div>
+        }
+        <div class="puesto-metadata">
+           <div>
+                <span class="display-label">
+                    @Html.DisplayNameFor(model => model.Nombre):
+                </span>
+                <span class="display-field">
+                    @Html.DisplayFor(model => item.Nombre)
+                </span>
+            </div>
+            <div>
+                <span class="display-label">
+                    @Html.DisplayNameFor(model => model.Numero_Puesto):
+                </span>
+                <span class="display-field">
+                    @Html.DisplayFor(model => item.Numero_Puesto)
+                </span>
+            </div>
+            <span class="display-label">
+                @Html.DisplayNameFor(model => model.Comentario):
+            </span>
+            <span class="display-field">
+             @item.Comentario.Count()
+            </span>
+        </div>
+        @Html.ActionLink("Detalles", "Details", new { id = item.Numero_Puesto }) |
+        @Html.ActionLink("Borrar", "Delete", new { id = item.Numero_Puesto })
+    </div>
+}
+
